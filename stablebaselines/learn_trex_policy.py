@@ -48,8 +48,8 @@ if __name__ == '__main__':
 
 
     env = gym.make(args.env)
-    env = RewardWrapper(env, './reward_ckpts/model.ckpt')
-    checkpoint_callback = CheckpointCallback(save_freq=1000, save_path='./trex_policy_ckpts/')
+    env = RewardWrapper(env, './reward_ckpts/'+ args.env +'/model.ckpt')
+    checkpoint_callback = CheckpointCallback(save_freq=1000, save_path='./trex_policy_ckpts/' + args.env +'/')
 
-    model = PPO('MlpPolicy', env, verbose=1, tensorboard_log="./trex_policy_ckpts/tensorboard_logs/")
+    model = PPO('MlpPolicy', env, verbose=1, tensorboard_log="./trex_policy_ckpts/"+ args.env +"/tensorboard_logs/")
     model.learn(total_timesteps=200000, callback=checkpoint_callback)
